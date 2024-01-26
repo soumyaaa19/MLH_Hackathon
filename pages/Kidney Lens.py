@@ -5,15 +5,15 @@ from msrest.authentication import ApiKeyCredentials
 import requests
 
 # Replace with your endpoint and prediction key
-ENDPOINT = st.secrets["ENDPOINT"]
-PREDICTION_KEY = st.secrets["PREDICTION_KEY"]
+ENDPOINT = "https://kidneydataset-prediction.cognitiveservices.azure.com/"
+PREDICTION_KEY = "e340a5b7e9b44194b6dd03e7f418894"
 
 # Create a prediction client
 credentials = ApiKeyCredentials(in_headers={"Prediction-key": PREDICTION_KEY})
 predictor = CustomVisionPredictionClient(ENDPOINT, credentials)
 
 st.set_page_config(page_title="MedAIgnosis: TumorTeller App")
-# dengue fever
+
 
 doctors = [
     {
@@ -51,7 +51,7 @@ def book_appointment(doctor_name, patient_email, patient_name):
 
 def send_confirmation_email(patient_email, doctor_name,patient_name):
    # Replace 'your_azure_logic_app_url' with the URL of your Azure logic app to send appointment emails
-    azure_logic_app_url = st.secrets["azure_logic_app_url"]
+    azure_logic_app_url = "https://prod-11.centralindia.logic.azure.com/workflows/a845897faa254f93a5db7375a917acc7/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=qJUCl1H4fqe0QGHrhZQonWcYbCIM_W2Pv7sZElzdTLg"
 
     email_data = {
         "to": patient_email,
@@ -70,7 +70,7 @@ def send_confirmation_email(patient_email, doctor_name,patient_name):
 
 def send_appointment_email(doctor_email, patient_email, doctor_name, patient_name):
     # Replace 'your_azure_logic_app_url' with the URL of your Azure logic app to send appointment emails
-    azure_logic_app_url = st.secrets["azure_logic_app_url"]
+    azure_logic_app_url ="https://prod-11.centralindia.logic.azure.com/workflows/a845897faa254f93a5db7375a917acc7/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=qJUCl1H4fqe0QGHrhZQonWcYbCIM_W2Pv7sZElzdTLg"
 
     email_data = {
         "to": doctor_email,
@@ -189,7 +189,7 @@ if image is not None:
     with image:
         st.image(image, caption="Your MRI Scan", width=350)
         image_data = image.read()
-        results = predictor.classify_image("414083bc-72e5-4997-8145-ef52688393f7", "Iteration1", image_data)
+        results = predictor.classify_image("748d2598-c0ce-481d-8e75-6a0d65dd5fdc", "Iteration1", image_data)
     disp = True
     
     c = st.image("loader.gif")
